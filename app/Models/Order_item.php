@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Order_item extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
-        'category_name',
-        'category_desc'
+        'order_id',
+        'book_id',
+        'quantity',
+        'price'
     ];
+
 }

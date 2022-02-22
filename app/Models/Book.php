@@ -10,5 +10,12 @@ class Book extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $table = 'book';
+    protected $fillable = [
+        'category_id',
+        'author_id',
+        'book_title',
+        'book_summary',
+        'book_price',
+        'book_cover_photo'
+    ];
 }
