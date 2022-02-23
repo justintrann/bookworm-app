@@ -9,8 +9,20 @@ class Order extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
-        'order_amount',
+        'order_date',
+        'order_amount'
     ];
+
+    //one-to-many relationship
+    public function orderItems()
+    {
+        return $this->hasMany(Order_item::class);
+    }
 }
