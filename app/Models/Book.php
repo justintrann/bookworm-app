@@ -105,7 +105,7 @@ class Book extends Model
     public function scopeGetFinalPrice($query)
     {
         return $query->addSelect([
-            'final_price' => Discount::select(DB::raw('coalesce(max(discount_price), book_price)'))
+            'final_price' => Discount::select(DB::raw('coalesce(sum(discount_price+0), book_price)'))
                 ->whereColumn('book_id', 'book.id')
                 ->whereDate('discount_start_date', '<=', now())
                 ->where(function ($query) {
@@ -127,7 +127,7 @@ class Book extends Model
     public function scopeGetRecommend($query)
     {
         // get top 8 books with most rating stars
-        return $query->GetAvgReview()->GetFinalPrice()->orderByDesc('avg_rate')->orderByDesc('final_price');
+        return $query->GetAvgReview()->GetFinalPrice()->orderByDesc('avg_rate');
     }
 
 
@@ -141,7 +141,7 @@ class Book extends Model
     {
         //Popular: get top 8 books with most reviews - total
         //number review of a book and lowest final price
-        return $query->whereHas('activeDiscount')->GetCountReview()->GetFinalPrice()->orderByDesc('counted_review')->orderBy('final_price');
+        return $query->GetCountReview()->GetFinalPrice()->orderByDesc('counted_review')->orderBy('final_price');
     }
 
 }

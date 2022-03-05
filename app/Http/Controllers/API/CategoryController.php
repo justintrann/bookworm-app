@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Discount;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 
@@ -40,9 +41,13 @@ class CategoryController extends Controller
      * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        return $category;
+        $categ = Discount::find($id);
+        if ($categ)
+            return response()->json($categ, 201);
+        else
+            return response()->json(['Message' => 'Not Found'], 404);
     }
 
     /**

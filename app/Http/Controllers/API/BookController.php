@@ -23,7 +23,6 @@ class BookController extends Controller
     public function index()
     {
         return $book = DB::table('book')
-            // ->join('discount', 'book.id', '=', 'discount.book_id')
             ->select('book.*')
             ->paginate(15);
     }
@@ -49,7 +48,7 @@ class BookController extends Controller
         $validated_request = $request->validated();
         $book = Book::create($validated_request);
 
-        return response(new BookResource($book), 201);
+        return response()->json(['Successfully' => $book], 201);
     }
 
     /**
@@ -60,7 +59,11 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        //
+        $book = Book::find($id);
+        if ($book)
+            return response()->json($book, 201);
+        else
+            return response()->json(['Message' => 'Not Found'], 404);
     }
 
     /**
@@ -81,9 +84,15 @@ class BookController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, $id)
     {
-        //
+        $book = Book::find($id);
+        if ($book) {
+            $book->update($request->all());
+            return response()->json(['message' => 'Updated'], 200);
+        } else {
+            return response()->json(['message' => 'Failed'], 200);
+        }
     }
 
     /**
@@ -113,8 +122,8 @@ class BookController extends Controller
 
     public function popular()
     {
-        $popular = Book::GetPopular()->take(8)->get();
-        return BookResource::collection($popular);
+       return $popular = Book::GetPopular()->take(8)->get();
+//        return BookResource::collection($popular);
     }
 
     public function filterByCategory($categ_id)
@@ -127,5 +136,11 @@ class BookController extends Controller
     {
         $author = Author::find($author_id);
         return $author->books;
+    }
+
+    public function test(Request $request)
+    {
+        return Book::GetFinalPrice()->get();
+
     }
 }

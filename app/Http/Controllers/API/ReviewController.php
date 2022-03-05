@@ -41,9 +41,13 @@ class ReviewController extends Controller
      * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function show(Review $review)
+    public function show($id)
     {
-        return new ReviewResource($review);
+        $book = Review::find($id);
+        if ($book)
+            return response()->json($book, 201);
+        else
+            return response()->json(['Message' => 'Not Found'], 404);
     }
 
     /**
@@ -69,7 +73,7 @@ class ReviewController extends Controller
     public function destroy(Review $review)
     {
         $review->delete();
-        
+
             return response()->json(['message' => 'Deleted'], 201);
     }
 }

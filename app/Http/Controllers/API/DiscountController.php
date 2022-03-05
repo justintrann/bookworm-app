@@ -39,9 +39,13 @@ class DiscountController extends Controller
      * @param \App\Models\Discount $discount
      * @return \Illuminate\Http\Response
      */
-    public function show(Discount $discount)
+    public function show($id)
     {
-        return $discount;
+        $discount = Discount::find($id);
+        if ($discount)
+            return response()->json($discount, 201);
+        else
+            return response()->json(['Message' => 'Not Found'], 404);
     }
 
     /**
@@ -53,13 +57,6 @@ class DiscountController extends Controller
      */
     public function update(Request $request, Discount $discount)
     {
-//        $discount = Discount::find($id);
-//        if ($discount) {
-//            $discount->update($request->all());
-//            return response()->json(['message' => 'Updated'], 200);
-//        } else {
-//            return response()->json(['message' => 'Failed'], 200);
-//        }
         $discount->update($request->all());
 
         return response()->json(['message' => 'Updated'], 200);

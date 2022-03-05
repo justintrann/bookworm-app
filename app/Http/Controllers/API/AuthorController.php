@@ -47,7 +47,7 @@ class AuthorController extends Controller
         //
         $author = Author::find($id);
         if ($author)
-            return response()->json(['Found' => $author], 201);
+            return response()->json($author, 201);
         else
             return response()->json(['Message' => 'Not Found'], 404);
     }
