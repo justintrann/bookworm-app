@@ -83,6 +83,10 @@ class Book extends Model
     }
 
     //Local Scope
+    public function scopeGetDetailBooks($query)
+    {
+        return $query->categories()->authors();
+    }
 
     public function scopeGetMinusPrice($query)
     {
