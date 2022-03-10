@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './carousel.css'
-
+import '../../page/home/home.css'
 const Carousel = (props) => {
-    const {children, show} = props
+    const { children, show } = props
 
     const [currentIndex, setCurrentIndex] = useState(0)
     const [length, setLength] = useState(children.length)
@@ -34,7 +34,7 @@ const Carousel = (props) => {
     const handleTouchMove = (e) => {
         const touchDown = touchPosition
 
-        if(touchDown === null) {
+        if (touchDown === null) {
             return
         }
 

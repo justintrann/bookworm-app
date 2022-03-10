@@ -6,12 +6,11 @@ import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse';
 
 function MyNavbar() {
   return (
-    <div className="navbar">
-      <Navbar bg="navColor" variant='light' sticky='top' expand="sm" style={{ width: "100%" }}>
+    <div className="navbar pt-0">
+      <Navbar bg="navColor" variant='light' sticky='top' expand="sm" style={{ width: "100%" }} className="px-5">
         <Navbar.Brand href='/#'>
           <img src={Logo} height='60%' alt="Logo" />
         </Navbar.Brand>
-        <b>BOOKWORM</b>
 
         <NavbarToggle />
         <NavbarCollapse>

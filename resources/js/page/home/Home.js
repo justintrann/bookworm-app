@@ -3,15 +3,20 @@ import './home.css';
 import Navbar from '../../components/Navbar/MyNavbar';
 import Carousel from '../../components/Carousel/Carousel';
 import axios from 'axios';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import Feature from '../../components/FeatureHome/Feature'
 
 function Home() {
     const [state, setState] = useState({
-        listBook: [],
+        listOnsale: [],
+        listFeature: [],
+        currentFeature: "recommend",
     });
 
     useEffect(async () => {
-        const res = await axios.get("/api/books/onsale");
-        setState({ listBook: res.data })
+        const resOnsale = await axios.get("/api/books/onsale");
+        const resRecommend = await axios.get("/api/books/recommend");
+        setState({ listOnsale: resOnsale.data, listFeature: resRecommend.data.data, currentFeature: "recommend" })
     }, [])
 
     const renderCarouselItem = (list = []) => {
@@ -19,34 +24,62 @@ function Home() {
             if (item.book_cover_photo === null) {
                 item.book_cover_photo = "book1";
             }
-            return <div>
-                <div style={{ padding: 8, display: "flex", flexDirection: "column" }}>
-                    <img src={`/assets/bookcover/${item.book_cover_photo}.jpg`} alt="placeholder" style={{ width: '80%' }} />
-                    <a>{item.book_title}</a>
+            return <>
+                <div className="card">
+                    <img src={`/assets/bookcover/${item.book_cover_photo}.jpg`} className="card-img-top " alt="..." />
+                    <div className="card-body">
+                        <h5 className="card-title">{item.book_title}</h5>
+                        <p className="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted">Last updated 3 mins ago</small>
+                    </div>
                 </div>
-            </div>
+            </>
         })
+    }
+
+    const handleFeature = async (type) => {
+        if (type === "recommend") {
+            const res = await axios.get("/api/books/recommend");
+            setState({ ...state, listFeature: res.data.data, currentFeature: "recommend" });
+            return;
+        }
+        if (type === "popular") {
+            const res = await axios.get("/api/books/popular");
+            setState({ ...state, listFeature: res.data, currentFeature: "popular" });
+            return;
+        }
+
     }
 
     return (
         <div className="home">
             <Navbar />
-            <div style={{ maxWidth: 1400, marginLeft: 'auto', marginRight: 'auto', marginTop: 5 }}>
-                <p><b>On Sale</b></p>
+
+            <Container>
+                <div className="headerCarousel">
+                    <h2 className="title">Onsale</h2>
+                    <div>View All</div>
+                </div>
                 <Carousel show={4}>
-                    {renderCarouselItem(state.listBook)}
+                    {renderCarouselItem(state.listOnsale)}
                 </Carousel>
-            </div>
+            </Container >
+
+            <Container>
+                <div className="headerFeature">
+                    <h2 className="title">Feature</h2>
+                    <div>
+                        <Button variant={state.currentFeature === "recommend" ? "success" : "light"} onClick={() => handleFeature("recommend")}>Recommend</Button>{' '}
+                        <Button variant={state.currentFeature === "popular" ? "success" : "light"} onClick={() => handleFeature("popular")} >Popular</Button>{' '}
+                    </div>
+                </div>
+                <Feature list={state.listFeature} />
+            </Container >
 
 
-            <div style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 5 }}>
-                <p><b>Featured Books</b></p>
-                <Carousel show={4}>
-                    {renderCarouselItem(state.listBook)}
-                </Carousel>
-            </div>
-
-        </div>
+        </div >
     );
 }
 
