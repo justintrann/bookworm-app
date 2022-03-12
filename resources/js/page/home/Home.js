@@ -5,7 +5,7 @@ import Carousel from '../../components/Carousel/Carousel';
 import axios from 'axios';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import Feature from '../../components/FeatureHome/Feature'
-
+import Footer from '../../components/Footer/Footer';
 function Home() {
     const [state, setState] = useState({
         listOnsale: [],
@@ -78,7 +78,7 @@ function Home() {
                 <Feature list={state.listFeature} />
             </Container >
 
-
+        <Footer />
         </div >
     );
 }
