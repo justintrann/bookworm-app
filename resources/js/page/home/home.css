@@ -1,0 +1,21 @@
+.bg-navColor {
+    background-color: whitesmoke;
+}
+
+.container-fluid {
+    padding: 0 100px 0 !important;
+}
+
+.container-fluid-a {
+    padding: 100px 100px 0 !important;
+}
+
+.headerCarousel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerFeature {
+    text-align: center;
+}

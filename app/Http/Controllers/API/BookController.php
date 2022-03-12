@@ -22,9 +22,12 @@ class BookController extends Controller
      */
     public function index()
     {
-        return $book = DB::table('book')
-            ->select('book.*')
-            ->paginate(15);
+        // return $book = DB::table('book')
+        //     ->select('book.*')
+        //     ->paginate(15);
+
+             $book = Book::GetDetailBooks()->paginate(15);
+             return BookResource::collection($book);
     }
 
     /**

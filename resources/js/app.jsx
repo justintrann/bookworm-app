@@ -1,8 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Welcome from './welcome';
+import Home from './page/home/Home';
+
+
+function App() {
+  return (
+    <div className="app">
+      <Home />
+
+    </div>
+  )
+}
+
+export default App
+
+
 
 ReactDOM.render(
-  <Welcome/>,
+  <App />,
   document.getElementById('root')
 );
