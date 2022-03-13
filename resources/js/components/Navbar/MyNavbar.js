@@ -3,13 +3,14 @@ import { Nav, Navbar } from 'react-bootstrap';
 import Logo from '../../../assets/bookworm_icon.svg';
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse';
+import 'animate.css';
 
 function MyNavbar() {
   return (
     <div className="navbar pt-0">
       <Navbar bg="navColor" variant='light' sticky='top' expand="sm" style={{ width: "100%" }} className="px-5">
         <Navbar.Brand href='/#'>
-          <img src={Logo} height='60%' alt="Logo" />
+          <img src={Logo} height='60%' alt="Logo" className='animate__animated animate__fadeInUp'/>
         </Navbar.Brand>
 
         <NavbarToggle />
