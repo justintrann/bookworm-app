@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import Feature from '../../components/FeatureHome/Feature'
 import Footer from '../../components/Footer/Footer';
+
 function Home() {
     const [state, setState] = useState({
         listOnsale: [],
@@ -16,23 +17,23 @@ function Home() {
     useEffect(async () => {
         const resOnsale = await axios.get("/api/books/onsale");
         const resRecommend = await axios.get("/api/books/recommend");
-        setState({ listOnsale: resOnsale.data, listFeature: resRecommend.data.data, currentFeature: "recommend" })
+        setState({ listOnsale: resOnsale.data.data, listFeature: resRecommend.data.data, currentFeature: "recommend" })
     }, [])
 
     const renderCarouselItem = (list = []) => {
         return list.map((item) => {
             if (item.book_cover_photo === null) {
-                item.book_cover_photo = "book1";
+                item.book_cover_photo = "booknull";
             }
             return <>
                 <div className="card">
                     <img src={`/assets/bookcover/${item.book_cover_photo}.jpg`} className="card-img-top " alt="..." />
                     <div className="card-body">
                         <h5 className="card-title">{item.book_title}</h5>
-                        <p className="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                        <p className="card-text">{item.author_info.author_name}</p>
                     </div>
                     <div className="card-footer">
-                        <small className="text-muted">Last updated 3 mins ago</small>
+                        <small className="text-muted"><b>{item.final_price}$</b></small>
                     </div>
                 </div>
             </>
@@ -47,7 +48,7 @@ function Home() {
         }
         if (type === "popular") {
             const res = await axios.get("/api/books/popular");
-            setState({ ...state, listFeature: res.data, currentFeature: "popular" });
+            setState({ ...state, listFeature: res.data.data, currentFeature: "popular" });
             return;
         }
 
@@ -78,10 +79,9 @@ function Home() {
                 <Feature list={state.listFeature} />
             </Container >
 
-        <Footer />
+            <Footer />
         </div >
     );
 }
-
 
 export default Home;

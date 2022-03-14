@@ -12,13 +12,13 @@ function Footer() {
 
                 <ul className='list'>
                     <li>
-                        <a href='#'>Home</a>
+                        <a href='/'>Home</a>
                     </li>
                     <li>
                         <a href='#'>Shop</a>
                     </li>
                     <li>
-                        <a href='#'>About</a>
+                        <a href='/about'>About</a>
                     </li>
                 </ul>
                 <p className='copyright'>Sang Tran x NashTech @ 2022</p>
