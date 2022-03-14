@@ -47,34 +47,34 @@ class Book extends Model
     ];
 
     //Local Func
-    public function categories()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function authors()
+    public function author()
     {
         return $this->belongsTo(Author::class);
     }
 
-    public function discounts()
+    public function discount()
     {
         return $this->hasMany(Discount::class);
     }
 
-    public function reviews()
+    public function review()
     {
         return $this->hasMany(Review::class);
     }
 
-    public function orderItems()
+    public function orderItem()
     {
         return $this->hasMany(OrderItem::class);
     }
 
     public function activeDiscount()
     {
-        return $this->discounts()
+        return $this->discount()
             ->whereDate('discount_start_date', '<=', now())
             ->where(function ($query) {
                 $query->whereDate('discount_end_date', '>=', now())
@@ -148,4 +148,8 @@ class Book extends Model
         return $query->GetCountReview()->GetFinalPrice()->orderByDesc('counted_review')->orderBy('final_price');
     }
 
+    public function scopeInTest($query)
+    {
+        return $this->authors();
+    }
 }
