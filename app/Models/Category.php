@@ -35,7 +35,7 @@ class Category extends Model
         'category_desc'
     ];
 
-    public function books()
+    public function book()
     {
         return $this->hasMany(Book::class);
     }

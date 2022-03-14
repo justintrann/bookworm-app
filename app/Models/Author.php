@@ -38,7 +38,7 @@ class Author extends Model
         'author_bio',
     ];
 
-    public function books()
+    public function book()
     {
         return $this->hasMany(Book::class);
     }

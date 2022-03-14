@@ -31,6 +31,6 @@ class AuthenController extends Controller
         //Show token
         //return response(['user' => auth()->user(), 'access_token' => $accessToken]);
 
-        return response()->json(['Successfully' => ['user'=>auth()->user()]],200);
+        return response()->json(['Successfully' => ['user'=>auth()->user(),'access_token' => $accessToken]],200);
     }
 }

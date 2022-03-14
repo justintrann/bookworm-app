@@ -36,9 +36,9 @@ Route::get('books/recommend',[BookController::class,'recommend']);
 Route::get('books/popular',[BookController::class,'popular']);
 Route::get('books/filter/category/{id}',[BookController::class,'filterByCategory']);
 Route::get('books/filter/author/{id}',[BookController::class,'filterByAuthor']);
-
+Route::get('books/filterBySort/',[BookController::class,'filterBySort']);
 //TEST
-Route::get('books/test',[BookController::class,'test']);
+
 
 
 Route::resource('books', BookController::class);

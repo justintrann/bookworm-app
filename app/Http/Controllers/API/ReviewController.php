@@ -55,7 +55,7 @@ class ReviewController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Review  $review
-     * @return \Illuminate\Http\Response
+     * @return ReviewResource
      */
     public function update(Request $request, Review $review)
     {
@@ -68,7 +68,7 @@ class ReviewController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Review  $review
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Review $review)
     {

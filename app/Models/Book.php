@@ -83,10 +83,7 @@ class Book extends Model
     }
 
     //Local Scope
-    public function scopeGetDetailBooks($query)
-    {
-        return $query->categories()->authors();
-    }
+
 
     public function scopeGetMinusPrice($query)
     {
@@ -127,18 +124,23 @@ class Book extends Model
         ]);
     }
 
+    public function scopeGetDetailBooks($query)
+    {
+        return $query->with('category','author')->GetFinalPrice()->GetAvgReview()->GetCountReview();
+    }
+
     //SHOW-OFF STAGE
     public function scopeGetRecommend($query)
     {
         // get top 8 books with most rating stars
-        return $query->GetAvgReview()->GetFinalPrice()->orderByDesc('avg_rate');
+        return $query->GetAvgReview()->GetFinalPrice()->GetCountReview()->orderByDesc('avg_rate');
     }
 
 
     public function scopeGetOnSale($query)
     {
         //top 10 books with the most discount
-        return $query->whereHas('activeDiscount')->GetMinusPrice()->orderByDesc('minus');
+        return $query->whereHas('activeDiscount')->GetFinalPrice()->GetMinusPrice()->orderByDesc('minus');
     }
 
     public function scopeGetPopular($query)
